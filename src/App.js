@@ -1,37 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { requestData } from "./actions";
-
+import { requestData, changeDate } from "./actions";
 import "./App.css";
 
 const mapStateToProps = (state) => ({
   apiVal: state,
+
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestnewData: ()=>requestData(dispatch)
+    requestnewData: (start, end)=>requestData(dispatch, start, end),
+    changenewDate: (id,val)=>changeDate(dispatch,id,val)
   }
 }
 
 class App extends Component {
   componentDidMount() {
-    this.props.requestnewData();
+    this.props.requestnewData(this.props.apiVal.startDate, this.props.apiVal.endDate);
   }
 
+  setDate=(event)=>{
+    const val=event.target.value;
+    const id=event.target.id;
+
+    this.props.changenewDate(id,val);
+  }
+  
+  changeFormat=(date)=>{
+    const d =new Date(date);
+    const nameOfMonth = d.toLocaleString('default', {
+      month: 'long',
+    });
+    return `${d.getDate()} ${nameOfMonth} ${d.getFullYear()}`;
+  }
 
   render() {
     
-    let startDate='';
-    let endDate='';
-
     return (
       <div className="App">
       <div className="bar"></div>
         <h1>Analytics</h1>
-        <input type='date' onChange={(event)=>{startDate=event.target.value}} />
-        <input type='date' onChange={(event)=>{endDate=event.target.value}} />
+        <input id='startDate' type='date' value={this.props.apiVal.startDate} onChange={(event)=>{this.setDate(event)}} />
+        <input id='endDate' type='date' value={this.props.apiVal.endDate} onChange={(event)=>{this.setDate(event)}} /> 
         <table>
           <thead>
             <tr>
@@ -52,8 +64,14 @@ class App extends Component {
               this.props.apiVal.data.map((item,index)=>{
                  return(
                   <tr key={index}>
-                    <td>{item.date}</td>
-                    <td>yo</td>
+                    <td>{this.changeFormat(item.date)}</td>
+                    {
+                      this.props.apiVal.appName.map((it,ind)=>{
+                        if(it.app_id === item.app_id){
+                          return <td>{it.app_name}</td>
+                        }
+                      })
+                    }
                     <td>{item.clicks}</td>
                     <td>{item.requests}</td>
                     <td>{item.responses}</td>
