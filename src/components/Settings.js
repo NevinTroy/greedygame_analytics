@@ -1,65 +1,53 @@
-import React from 'react'
-import { connect } from "react-redux";
+import React, {useState, useRef} from 'react'
+import { connect, useDispatch, useSelector, useStore} from 'react-redux';
 
-import { requestData, setEnable} from "../actions";
+import { setEnable} from "../actions";
 import './Settings.css'
 
-const mapStateToProps = (state) => ({
-  enableVal: state.setEnable.enableVal,
-})
+function Settings(props){
+  const dispatch=useDispatch();
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setNewEnable: (enable)=>setEnable(dispatch, enable)
+  const [listItems,setListItems]=useState(props.defaultenableVal);
+  const dragItem = React.useRef();
+  const dragOverItem = React.useRef();
+  
+  const handleSort=()=>{
+    let _listItems=[...listItems];
+
+    const draggedItemContent=_listItems.splice(dragItem.current,1)[0];
+
+    _listItems.splice(dragOverItem.current,0, draggedItemContent);
+
+    dragItem.current=null;
+    dragOverItem.current=null;
+
+    setListItems(_listItems);
   }
-}
-class Settings extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      listItems: this.props.defaultEnable
-    }
-    this.dragItem = React.createRef();
-    this.dragOverItem = React.createRef();
+  const setSettingsList=()=>{
+    setEnable(dispatch,listItems);
   }
-  handleSort=()=>{
-    let _listItems=[...this.state.listItems];
-
-    const draggedItemContent=_listItems.splice(this.dragItem.current,1)[0];
-
-    _listItems.splice(this.dragOverItem.current,0, draggedItemContent);
-
-    this.dragItem.current=null;
-    this.dragOverItem.current=null;
-
-    this.setState({listItems: _listItems});
-  }
-  setSettingsList=()=>{
-    this.props.setNewEnable(this.state.listItems);
-  }
-  render(){
-    return(
+  return(
       <div className='container'>
         <h3>Dimensions and Metrics</h3>
           {
-            this.state.listItems.map((item,index)=>{
+            listItems.map((item,index)=>{
               return (
                 <div 
                   key={index} 
                   draggable 
-                  onDragStart={(e)=>this.dragItem.current=index}
-                  onDragEnter={(e)=>this.dragOverItem.current=index}
-                  onDragEnd={this.handleSort}
+                  onDragStart={(e)=>dragItem.current=index}
+                  onDragEnter={(e)=>dragOverItem.current=index}
+                  onDragEnd={handleSort}
                   onDragOver={(e)=>e.preventDefault()}>
                   <h4>{item}</h4>
                 </div>
               )
             })
-          }
-          <button onClick={()=>{this.setSettingsList()}}>Apply Changes</button>
+          } 
+          <button onClick={()=>{setSettingsList()}}>Apply Changes</button>
     </div>
     )
-  }
+  
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default Settings;
