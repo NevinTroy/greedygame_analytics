@@ -1,10 +1,10 @@
 import { apiCall } from "./api";
-import { REQUEST_PENDING, REQUEST_SUCCESS, REQUEST_FAILED } from "./constants";
+import { REQUEST_PENDING, REQUEST_SUCCESS, REQUEST_FAILED, ENABLE_CHANGE } from "./constants";
 
-export const requestData=(dispatch,startDate,endDate)=>{
+export const requestData=(dispatch,start,end)=>{
     dispatch({type:REQUEST_PENDING});
 
-    fetch(`http://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`)
+    fetch(`http://go-dev.greedygame.com/v3/dummy/report?startDate=${start}&endDate=${end}`)
         .then(res=>res.json())
         .then(data=>{
             fetch(`http://go-dev.greedygame.com/v3/dummy/apps`)
@@ -14,14 +14,15 @@ export const requestData=(dispatch,startDate,endDate)=>{
                     payload: {
                         cache_time: data.cache_time,
                         data: data.data,
-                        appName: d1.data
+                        appName: d1.data,
+                        startDate: start,
+                        endDate:end
                     }})
               })
           })
         .catch(error=>dispatch({type:REQUEST_FAILED, payload: error}))
 }
 
-export const changeDate=(dispatch, id, val)=>{
-  console.log(id,val);
-  // dispatch({payload: {id, val}})
+export const setEnable=(dispatch,enable)=>{
+    dispatch({type:ENABLE_CHANGE,payload:enable})
 }

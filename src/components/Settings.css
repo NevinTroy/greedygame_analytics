@@ -1,0 +1,19 @@
+.container{
+    margin-top: 5rem;
+    height: 15rem;
+    width: 100%;
+    background-color: #e0e0e09c ;
+}
+h5{
+    margin-left: 1rem;
+}
+ul{
+    list-style: none;
+    float: right;
+    margin-right: 20px;
+}
+ul li{
+    display: inline-block;
+    left: 10px;
+    margin: 0 5px;
+}

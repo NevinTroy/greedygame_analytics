@@ -7,14 +7,14 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
-import { gatherData, } from "./reducers";
+import { requestData,setEnable } from "./reducers";
 
 const logger = createLogger();
-const rootReducers = combineReducers({gatherData})
+const rootReducers = combineReducers({requestData, setEnable})
 
 const store = createStore(
-  gatherData,
-  compose(applyMiddleware(logger), applyMiddleware(thunk))
+  rootReducers,
+  compose(applyMiddleware(thunk), applyMiddleware(logger))
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -1,8 +1,8 @@
-import { current } from "@reduxjs/toolkit";
 import {
   REQUEST_PENDING,
   REQUEST_SUCCESS,
   REQUEST_FAILED,
+  ENABLE_CHANGE,
 } from "./constants.js";
 
 let initialState = {
@@ -11,12 +11,11 @@ let initialState = {
   data: [],
   error: "",
   appName: [],
-  startDate:'2021-05-01',
-  endDate:'2021-05-03',
-  enable:['clicks', 'requests', 'response', 'impression', 'fillRate', 'CTR']  
+  startDate:'',
+  endDate:''
 };
 
-export const gatherData = (state =initialState, action = {}) => {
+export const requestData = (state =initialState, action = {}) => {
   switch (action.type) {
     case REQUEST_PENDING:
       return Object.assign({}, state, { isPending: true });
@@ -26,9 +25,8 @@ export const gatherData = (state =initialState, action = {}) => {
         isPending: false,
         appName: action.payload.appName,
         cache_time: action.payload.cache_time,
-        enable: initialState.enable,
-        startDate: initialState.startDate,
-        endDate: initialState.endDate
+        startDate: action.payload.start,
+        endDate: action.payload.end
       });
     case REQUEST_FAILED:
       return Object.assign({}, state, {
@@ -40,12 +38,10 @@ export const gatherData = (state =initialState, action = {}) => {
   }
 };
 
-let dateState={
-
+let enableState={
+  enableVal:['Clicks', 'AD Requests', 'AD Responses', 'Impressions','Revenue', 'Fill Rate', 'CTR']
 }
 
-// export const changeDate=(state={dateState}, action={})=>{
-//   return Object.assign({}, state,{
-//     [action.payload.id]: action.payload.val
-//   })
-// }
+export const setEnable=(state=enableState, action={})=>{
+    return Object.assign({}, state,{enableVal:action.payload})
+}
