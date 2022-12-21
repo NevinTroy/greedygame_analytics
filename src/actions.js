@@ -1,5 +1,4 @@
-import { apiCall } from "./api";
-import { REQUEST_PENDING, REQUEST_SUCCESS, REQUEST_FAILED, ENABLE_CHANGE } from "./constants";
+import { REQUEST_PENDING, REQUEST_SUCCESS, REQUEST_FAILED, ENABLE_CHANGE, DATE_CHANGE } from "./constants";
 
 export const requestData=(dispatch,start,end)=>{
     dispatch({type:REQUEST_PENDING});
@@ -22,6 +21,10 @@ export const requestData=(dispatch,start,end)=>{
           })
         .catch(error=>dispatch({type:REQUEST_FAILED, payload: error}))
 }
+
+// export const setDate=(dispatch, date, id)=>{
+//     dispatch({type: DATE_CHANGE, payload: {}})
+// }
 
 export const setEnable=(dispatch,enable)=>{
     dispatch({type:ENABLE_CHANGE,payload:enable})

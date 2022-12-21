@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
-import { requestData,setEnable } from "./reducers";
+import { requestData, setEnable} from "./reducers";
 
 const logger = createLogger();
 const rootReducers = combineReducers({requestData, setEnable})

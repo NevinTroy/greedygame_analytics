@@ -16,17 +16,18 @@ function App(){
     const appName=useSelector(state=>state.requestData.appName);
     let startDate=useSelector(state=>state.requestData.startDate);
     let endDate=useSelector(state=>state.requestData.endDate);
-    let enableVal=useSelector(state=>state.setEnable.enableVal) || defaultenableVal ;
+    let enableVal=useSelector(state=>state.setEnable.enableVal) ;
     const error=useSelector(state=>state.requestData.error);
 
 
     useEffect(()=>{
         requestData(dispatch,'2020-12-11', '2020-12-12');
+        setEnable(dispatch,enableVal);
     },[startDate,endDate])
 
-    useEffect(()=>{
-        setEnable(dispatch,enableVal);
-    },[enableVal])
+    // useEffect(()=>{
+    //     setEnable(dispatch,enableVal);
+    // },[enableVal])
 
     const changeFormat=(date)=>{
         const d =new Date(date);
@@ -37,25 +38,25 @@ function App(){
       }
     
     const setDate=(event)=>{
+        // setDate(dispatch, event.target.value, event.target.id)
+        // console.log(event.target.value, event.target.id);
         event.target.id === 'startDate' ? startDate=event.target.value : endDate=event.target.value;
       }
     
     const fetchNewData=()=>{
-        requestData(dispatch,startDate,endDate);
+      requestData(dispatch,startDate,endDate);
+      // console.log(startDate,endDate)
     }
-      const dragItem = React.useRef();
-      const dragOverItem = React.useRef();
-  
-    const setSettingsList=()=>{
-        setEnable(dispatch,listItems);
-    }
+    // const setSettingsList=()=>{
+    //     setEnable(dispatch,listItems);
+    // }
     return(
         <div className="App">
             <div className="bar"></div>
             <h1>Analytics</h1>
             <input id='startDate' type='date' value={startDate} onChange={(event)=>{setDate(event)}} />
             <input id='endDate' type='date' value={endDate} onChange={(event)=>{setDate(event)}} /> 
-            <button onClick={()=>{fetchNewData()}}>Submit</button>
+            <button onClick={()=>fetchNewData()}>Submit</button>
         {
             data === undefined ? <h1>wrong</h1>
             :
@@ -64,7 +65,7 @@ function App(){
             <tr>
               <th>Date</th>
               <th>App Name</th>
-              {
+              {/* {
                 typeof enableVal === 'object' 
                   ? 
                 defaultenableVal.map((val,index)=>{
@@ -74,7 +75,7 @@ function App(){
                 enableVal.map((val,index)=>{
                   return <th key={index}>{val}</th>
                 })
-              }
+              } */}
             </tr>
           </thead>
           <tbody>
@@ -87,7 +88,7 @@ function App(){
                     {
                       appName.map((it,ind)=>{
                         if(it.app_id === item.app_id){
-                          return <td>{it.app_name}</td>
+                          return <td key={ind}>{it.app_name}</td>
                         }
                       })
                     }
@@ -108,7 +109,7 @@ function App(){
           </tbody>
         </table>
         } 
-        <Settings defaultenableVal={defaultenableVal} />
+        <Settings defaultenableVal={defaultenableVal}/>
       </div>
     )
 }

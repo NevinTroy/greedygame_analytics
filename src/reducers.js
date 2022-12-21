@@ -15,6 +15,17 @@ let initialState = {
   endDate:''
 };
 
+// let initialDates={
+//   startDate:'',
+//   endDate:''
+// }
+
+// export const setDate=(state=initialDates, action={})=>{
+//   return Object.assign({},state, {
+//     [action.payload.id]: action.payload.date
+//   })
+// }
+
 export const requestData = (state =initialState, action = {}) => {
   switch (action.type) {
     case REQUEST_PENDING:

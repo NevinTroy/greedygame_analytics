@@ -5,9 +5,11 @@ import { setEnable} from "../actions";
 import './Settings.css'
 
 function Settings(props){
+  
   const dispatch=useDispatch();
 
   const [listItems,setListItems]=useState(props.defaultenableVal);
+
   const dragItem = React.useRef();
   const dragOverItem = React.useRef();
   
@@ -22,9 +24,7 @@ function Settings(props){
     dragOverItem.current=null;
 
     setListItems(_listItems);
-  }
-  const setSettingsList=()=>{
-    setEnable(dispatch,listItems);
+    setEnable(dispatch,_listItems);
   }
   return(
       <div className='container'>
@@ -38,13 +38,13 @@ function Settings(props){
                   onDragStart={(e)=>dragItem.current=index}
                   onDragEnter={(e)=>dragOverItem.current=index}
                   onDragEnd={handleSort}
-                  onDragOver={(e)=>e.preventDefault()}>
-                  <h4>{item}</h4>
+                  onDragOver={(e)=>e.preventDefault()} >
+                  <input id="yuh" type='checkbox'/>
+                  <label for="yuh" >{item}</label>
                 </div>
               )
             })
           } 
-          <button onClick={()=>{setSettingsList()}}>Apply Changes</button>
     </div>
     )
   
