@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
-import { requestData, setEnable} from "./actions";
+import { requestData, setEnable, setStartDate, setEndDate} from "./actions";
 import Settings from "./components/Settings";
 import "./App.css";
 
@@ -14,20 +14,15 @@ function App(){
     const cache_time=useSelector(state=>state.requestData.cache_time);
     const data=useSelector(state=>state.requestData.data);
     const appName=useSelector(state=>state.requestData.appName);
-    let startDate=useSelector(state=>state.requestData.startDate);
-    let endDate=useSelector(state=>state.requestData.endDate);
+    let startDate=useSelector(state=>state.setStartDate.startDate);
+    let endDate=useSelector(state=>state.setEndDate.endDate);
     let enableVal=useSelector(state=>state.setEnable.enableVal) ;
     const error=useSelector(state=>state.requestData.error);
 
 
     useEffect(()=>{
-        requestData(dispatch,'2020-12-11', '2020-12-12');
-        setEnable(dispatch,enableVal);
-    },[startDate,endDate])
-
-    // useEffect(()=>{
-    //     setEnable(dispatch,enableVal);
-    // },[enableVal])
+        requestData(dispatch,'2020-12-11','2020-12-12');
+    },[error])
 
     const changeFormat=(date)=>{
         const d =new Date(date);
@@ -38,18 +33,12 @@ function App(){
       }
     
     const setDate=(event)=>{
-        // setDate(dispatch, event.target.value, event.target.id)
-        // console.log(event.target.value, event.target.id);
-        event.target.id === 'startDate' ? startDate=event.target.value : endDate=event.target.value;
+        event.target.id === 'startDate' ? setStartDate(dispatch, event.target.value): setEndDate(dispatch, event.target.value);
       }
     
     const fetchNewData=()=>{
       requestData(dispatch,startDate,endDate);
-      // console.log(startDate,endDate)
     }
-    // const setSettingsList=()=>{
-    //     setEnable(dispatch,listItems);
-    // }
     return(
         <div className="App">
             <div className="bar"></div>
@@ -65,17 +54,11 @@ function App(){
             <tr>
               <th>Date</th>
               <th>App Name</th>
-              {/* {
-                typeof enableVal === 'object' 
-                  ? 
-                defaultenableVal.map((val,index)=>{
-                  return <th key={index}>{val}</th>
-                })
-                  :
+              {
                 enableVal.map((val,index)=>{
                   return <th key={index}>{val}</th>
                 })
-              } */}
+              }
             </tr>
           </thead>
           <tbody>
@@ -92,13 +75,26 @@ function App(){
                         }
                       })
                     }
-                    <td>{item.clicks}</td>
-                    <td>{item.requests}</td>
-                    <td>{item.responses}</td>
-                    <td>{item.impressions}</td>
-                    <td>{item.revenue.toFixed(2)}</td>
-                    <td>{((item.requests/item.responses)*100).toFixed(2)}</td>
-                    <td>{((item.clicks/item.impressions)*100).toFixed(2)}</td>
+                    {
+                      enableVal.map((it,ind)=>{
+                        switch(it){
+                          case 'Clicks':
+                            return <td key={ind}>{item.clicks}</td>
+                          case 'AD Requests':
+                            return <td key={ind}>{item.requests}</td>
+                          case 'AD Responses':
+                            return <td>{item.responses}</td>
+                          case 'Impressions':
+                            return <td>{item.impressions}</td>
+                          case 'Revenue':
+                            return <td>{item.revenue.toFixed(2)}</td>
+                          case 'Fill Rate':
+                            return <td>{((item.requests/item.responses)*100).toFixed(2)}</td>                        
+                          case 'CTR':
+                            return <td>{((item.clicks/item.impressions)*100).toFixed(2)}</td>
+                        }
+                      })
+                    } 
                   </tr>
                 )
               })

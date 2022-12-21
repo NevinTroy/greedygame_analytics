@@ -7,10 +7,10 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
-import { requestData, setEnable} from "./reducers";
+import { requestData, setEnable,setStartDate, setEndDate} from "./reducers";
 
 const logger = createLogger();
-const rootReducers = combineReducers({requestData, setEnable})
+const rootReducers = combineReducers({requestData, setEnable, setStartDate, setEndDate});
 
 const store = createStore(
   rootReducers,

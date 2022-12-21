@@ -3,6 +3,8 @@ import {
   REQUEST_SUCCESS,
   REQUEST_FAILED,
   ENABLE_CHANGE,
+  START_DATE_CHANGE,
+  END_DATE_CHANGE
 } from "./constants.js";
 
 let initialState = {
@@ -11,21 +13,54 @@ let initialState = {
   data: [],
   error: "",
   appName: [],
-  startDate:'',
-  endDate:''
 };
 
-// let initialDates={
-//   startDate:'',
-//   endDate:''
-// }
+let initialSetDate={
+  startDate:'2020-12-11',
+  endDate:'2020-12-12'
+}
 
-// export const setDate=(state=initialDates, action={})=>{
-//   return Object.assign({},state, {
-//     [action.payload.id]: action.payload.date
-//   })
-// }
+let initialStartDate={
+  startDate:'2020-12-11'
+}
+let initialEndDate={
+  endDate:'2020-12-12'
+}
 
+export const setDate=(state=initialSetDate, action={})=>{
+  switch(action.type){
+    case START_DATE_CHANGE:
+      return Object.assign({},state, {
+        startDate: action.payload
+    })
+    case END_DATE_CHANGE:
+        return Object.assign({},state, {
+          startDate: action.payload
+    })
+    default:
+      return state
+  }
+}
+export const setStartDate=(state=initialStartDate, action={})=>{
+  switch(action.type){
+    case START_DATE_CHANGE:
+      return Object.assign({},state, {
+        startDate: action.payload
+      })
+    default:
+      return state
+  }
+}
+export const setEndDate=(state=initialEndDate, action={})=>{
+  switch(action.type){
+    case END_DATE_CHANGE:
+      return Object.assign({},state, {
+        endDate: action.payload
+      })
+    default:
+      return state
+  }
+}
 export const requestData = (state =initialState, action = {}) => {
   switch (action.type) {
     case REQUEST_PENDING:
@@ -35,9 +70,7 @@ export const requestData = (state =initialState, action = {}) => {
         data: action.payload.data,
         isPending: false,
         appName: action.payload.appName,
-        cache_time: action.payload.cache_time,
-        startDate: action.payload.start,
-        endDate: action.payload.end
+        cache_time: action.payload.cache_time
       });
     case REQUEST_FAILED:
       return Object.assign({}, state, {
@@ -54,5 +87,10 @@ let enableState={
 }
 
 export const setEnable=(state=enableState, action={})=>{
-    return Object.assign({}, state,{enableVal:action.payload})
+    switch(action.type){
+      case ENABLE_CHANGE:
+        return Object.assign({}, state,{enableVal:action.payload})
+      default:
+        return state;
+    }
 }

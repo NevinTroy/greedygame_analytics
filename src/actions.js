@@ -1,4 +1,10 @@
-import { REQUEST_PENDING, REQUEST_SUCCESS, REQUEST_FAILED, ENABLE_CHANGE, DATE_CHANGE } from "./constants";
+import { REQUEST_PENDING, 
+    REQUEST_SUCCESS, 
+    REQUEST_FAILED, 
+    ENABLE_CHANGE, 
+    START_DATE_CHANGE,
+    END_DATE_CHANGE } from "./constants";
+
 
 export const requestData=(dispatch,start,end)=>{
     dispatch({type:REQUEST_PENDING});
@@ -13,18 +19,20 @@ export const requestData=(dispatch,start,end)=>{
                     payload: {
                         cache_time: data.cache_time,
                         data: data.data,
-                        appName: d1.data,
-                        startDate: start,
-                        endDate:end
+                        appName: d1.data
                     }})
               })
           })
         .catch(error=>dispatch({type:REQUEST_FAILED, payload: error}))
 }
 
-// export const setDate=(dispatch, date, id)=>{
-//     dispatch({type: DATE_CHANGE, payload: {}})
-// }
+export const setStartDate=(dispatch, date)=>{
+    dispatch({type: START_DATE_CHANGE, payload: date})
+}
+
+export const setEndDate=(dispatch, date)=>{
+    dispatch({type: END_DATE_CHANGE, payload: date})
+}
 
 export const setEnable=(dispatch,enable)=>{
     dispatch({type:ENABLE_CHANGE,payload:enable})
