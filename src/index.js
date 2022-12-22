@@ -7,15 +7,28 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./App";
-import { requestData, setEnable,setStartDate, setEndDate} from "./reducers";
+import { requestData, 
+  setEnable,
+  setStartDate,
+  setEndDate} 
+from "./reducers";
+
+import { loadState, saveState } from "./localStorage";
+
 
 const logger = createLogger();
 const rootReducers = combineReducers({requestData, setEnable, setStartDate, setEndDate});
+const persistedState=loadState();
 
 const store = createStore(
   rootReducers,
-  compose(applyMiddleware(thunk), applyMiddleware(logger))
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+store.subscribe(()=>{
+  saveState(store.getState());
+})
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
