@@ -16,7 +16,7 @@ import { GoSettings } from "react-icons/go";
 const App=()=>{
   const dispatch=useDispatch();
 
-  const history = createBrowserHistory();
+  // const history = createBrowserHistory();
 
   const isPending=useSelector(state=>state.requestData.isPending);
   const cache_time=useSelector(state=>state.requestData.cache_time);
