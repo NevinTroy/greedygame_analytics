@@ -1,7 +1,7 @@
 {
   "main.css": "/greedygame_analytics/static/css/main.05c35f94.chunk.css",
-  "main.js": "/greedygame_analytics/static/js/main.86630bd6.chunk.js",
-  "main.js.map": "/greedygame_analytics/static/js/main.86630bd6.chunk.js.map",
+  "main.js": "/greedygame_analytics/static/js/main.decc7514.chunk.js",
+  "main.js.map": "/greedygame_analytics/static/js/main.decc7514.chunk.js.map",
   "static/js/1.44b10de7.chunk.js": "/greedygame_analytics/static/js/1.44b10de7.chunk.js",
   "static/js/1.44b10de7.chunk.js.map": "/greedygame_analytics/static/js/1.44b10de7.chunk.js.map",
   "runtime~main.js": "/greedygame_analytics/static/js/runtime~main.3ca5a15d.js",
@@ -9,6 +9,6 @@
   "static/media/logo.svg": "/greedygame_analytics/static/media/logo.63207fb8.svg",
   "static/css/main.05c35f94.chunk.css.map": "/greedygame_analytics/static/css/main.05c35f94.chunk.css.map",
   "index.html": "/greedygame_analytics/index.html",
-  "precache-manifest.60926e9a872638f5b03a153f7eee4e01.js": "/greedygame_analytics/precache-manifest.60926e9a872638f5b03a153f7eee4e01.js",
+  "precache-manifest.fb4a400eac86384ca8e46ffa0620a9be.js": "/greedygame_analytics/precache-manifest.fb4a400eac86384ca8e46ffa0620a9be.js",
   "service-worker.js": "/greedygame_analytics/service-worker.js"
 }
