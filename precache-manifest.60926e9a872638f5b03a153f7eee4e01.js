@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "fcd19f7a4caea5468970",
+    "revision": "86630bd65a996eed3241",
     "url": "/greedygame_analytics/static/css/main.05c35f94.chunk.css"
   },
   {
-    "revision": "fcd19f7a4caea5468970",
-    "url": "/greedygame_analytics/static/js/main.fcd19f7a.chunk.js"
+    "revision": "86630bd65a996eed3241",
+    "url": "/greedygame_analytics/static/js/main.86630bd6.chunk.js"
   },
   {
     "revision": "44b10de7445632a02e55",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/greedygame_analytics/static/media/logo.63207fb8.svg"
   },
   {
-    "revision": "6fcc1375af1f255cfcda9da8035e9b47",
+    "revision": "84dcf2cc7d3860c22b9d3efb5292dc96",
     "url": "/greedygame_analytics/index.html"
   }
 ];
