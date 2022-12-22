@@ -1,9 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
 import { requestData, setEnable, setStartDate, setEndDate} from "./actions";
-import Settings from "./components/Settings";
+import Settings from "./components/Settings/Settings";
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+
 import "./App.css";
+import Table from './components/Table/Table';
+import logo from './logo.png';
+
+import { GoSettings } from "react-icons/go";
 
 function App(){
   const dispatch=useDispatch();
@@ -17,87 +23,49 @@ function App(){
   let enableVal=useSelector(state=>state.setEnable.enableVal) ;
   const error=useSelector(state=>state.requestData.error);
 
+  const [toggle,setToggle]=useState(false);
 
   useEffect(()=>{
       requestData(dispatch,'2020-12-11','2020-12-12');
   },[error])
 
-  const changeFormat=(date)=>{
-    const d =new Date(date);
-    const nameOfMonth = d.toLocaleString('default', {
-      month: 'long',
-    });
-    return `${d.getDate()} ${nameOfMonth} ${d.getFullYear()}`;
-  }
-    
   const setDate=(event)=>{
     event.target.id === 'startDate' ? setStartDate(dispatch, event.target.value): setEndDate(dispatch, event.target.value);
   }
+
   return(
-    <div className="App">
-      <div className="bar"></div>
-      <h1>Analytics</h1>
-      <input id='startDate' type='date' value={startDate} onChange={(event)=>{setDate(event)}} />
-      <input id='endDate' type='date' value={endDate} onChange={(event)=>{setDate(event)}} /> 
-      {
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>App Name</th>
-              {
-                enableVal.map((val,index)=>{
-                  return <th key={index}>{val}</th>
-                })
-              }
-            </tr>
-          </thead>
-          <tbody>
+    <div className='App'>
+      <div className='bar'></div>
+        <div className='header'>
+          <h1>Analytics</h1>
+        </div>
+        <div className='settings'>
+          <input id='startDate' type='date' value={startDate} onChange={(event)=>{setDate(event)}} />
+          <input id='endDate' type='date' value={endDate} onChange={(event)=>{setDate(event)}} />       
+          <button onClick={()=>{toggle ? setToggle(false) : setToggle(true)}}><GoSettings className='settingsIcon'/>Settings</button>
           {
-            !isPending ? (
-              data.map((item,index)=>{
-                 return(
-                  <tr key={index}>
-                    <td>{changeFormat(item.date)}</td>
-                    {
-                      appName.map((it,ind)=>{
-                        if(it.app_id === item.app_id){
-                          return <td key={ind}>{it.app_name}</td>
-                        }
-                      })
-                    }
-                    {
-                      enableVal.map((it,ind)=>{
-                        switch(it){
-                          case 'Clicks':
-                            return <td key={ind}>{item.clicks}</td>
-                          case 'AD Requests':
-                            return <td key={ind}>{item.requests}</td>
-                          case 'AD Responses':
-                            return <td>{item.responses}</td>
-                          case 'Impressions':
-                            return <td>{item.impressions}</td>
-                          case 'Revenue':
-                            return <td>{item.revenue.toFixed(2)}</td>
-                          case 'Fill Rate':
-                            return <td>{((item.requests/item.responses)*100).toFixed(2)}</td>                        
-                          case 'CTR':
-                            return <td>{((item.clicks/item.impressions)*100).toFixed(2)}</td>
-                        }
-                      })
-                    } 
-                  </tr>
-                )
-              })
-            )
+            toggle ? 
+              <Settings 
+              setEnable={setEnable} requestData={requestData} 
+              startDate={startDate} endDate={endDate} 
+              defaultenableVal={enableVal} setToggle={setToggle}
+              />
             :
-            <h1>Loading</h1>
+              console.log('none')
           }
-          </tbody>
-        </table>
-        } 
-        <Settings setEnable={setEnable} requestData={requestData} startDate={startDate} endDate={endDate} defaultenableVal={enableVal}/>
-    </div>
+        </div>
+        {
+          Object.keys(data).length !== 0
+            ?
+          <div className='table'>
+            <Table enableVal={enableVal} isPending={isPending} data={data} appName={appName} /> 
+          </div>
+          : 
+          <div className='errorBoundary'>
+            <ErrorBoundary />
+          </div>
+        }
+      </div>
     )
 }
 

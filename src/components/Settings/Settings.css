@@ -1,0 +1,61 @@
+.container{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  background-color :antiquewhite;
+  min-width: 1000px;
+  min-height: 200px;
+}
+
+.yuhh{
+  display: flex;
+  justify-content: space-around;
+}
+
+button{
+  margin: 25px 5px;
+  border-radius: 3px;
+
+}
+.apply{
+  background-color: #136FED;
+  color: white;
+}
+
+.close{
+  background-color: white;
+  color: #136FED;
+}
+
+.checkbox{
+  margin: 4px;
+  background-color :white;
+  overflow: hidden;
+  float: left;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  max-height: 2rem;
+  min-width: 4rem;
+}
+
+.checkbox label {
+  float: left;
+  width: 20em; 
+  height: 3.0em;
+}
+
+.checkbox label span {
+  text-align: left;
+  padding-top: 5px; 
+  padding-left: 15px;
+  display: block;
+}
+
+.checkbox label input {
+  position: absolute;
+  display: none;
+}
+.checkbox input:checked+span{
+  background-color: #136FED;
+  height: 100%;
+  max-width: 1px;
+}

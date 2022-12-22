@@ -3,9 +3,9 @@ import { useDispatch} from 'react-redux';
 
 import './Settings.css'
 
-function Settings(props){
+const Settings=(props)=>{
   
-  const {setEnable, requestData, startDate, endDate, defaultenableVal}=props;
+  const {setEnable, requestData, startDate, endDate, defaultenableVal, setToggle}=props;
   const dispatch=useDispatch();
 
   const [listItems,setListItems]=useState(defaultenableVal);
@@ -42,16 +42,17 @@ function Settings(props){
 
   const applyChanges= ()=>{
     const res=listItems.filter(item => filteredListItems.includes(item));
-    props.requestData(dispatch,startDate,endDate);
-    props.setEnable(dispatch,res);
+    requestData(dispatch,startDate,endDate);
+    setEnable(dispatch,res);
   }
   return(
     <div className='container'>
       <h3>Dimensions and Metrics</h3>
-        {
+      <div className='yuhh'>
+      {
           listItems.map((item,index)=>{
             return (
-              <div 
+              <div className='checkbox'
                 key={index} 
                 draggable 
                 onDragStart={(e)=>dragItem.current=index}
@@ -59,18 +60,21 @@ function Settings(props){
                 onDragEnd={handleSort}
                 onDragOver={(e)=>e.preventDefault()}
               >
-                <input 
-                  id={index} name={item} 
-                  type='checkbox' 
-                  checked={isChecked(item)} 
-                  onChange={handleChange}
-                />
-                <label htmlFor={index}>{item}</label> 
+                <label>
+                  <input 
+                    id={index} name={item} 
+                    type='checkbox' 
+                    checked={isChecked(item)} 
+                    onChange={handleChange}
+                  /><span>{item}</span>
+                </label>
               </div>
             )
           })    
         } 
-      <button onClick={applyChanges}>Apply</button>
+      </div>
+      <button onClick={applyChanges} className='apply'>Apply</button>
+      <button className='close' onClick={()=>{setToggle(false)}}>Close</button>
     </div>
   ) 
 }

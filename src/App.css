@@ -3,64 +3,84 @@
   box-sizing: border-box;
 }
 .App {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start
+  display: grid;
+  background-color: darkcyan;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 .bar{
-  top: 0%;
-  left: 0%;
-  width: 108px;
-  height: 100%;
-  min-height: 200vh;
+  grid-area: 1 / 1 / 7 / 2;
+  max-width: 80px;
   background: #192F48;
   opacity: 1;
 }
-input{
-  margin-top: 10rem ;
-}
 
-h1{
-  margin-top: 5rem ;
-  margin-left: 1rem;
-  height: 29px;
+.header{
+  grid-area: 1 / 2 / 2 / 11; 
+  background-color: aliceblue;
+  max-height: 120px;
+}
+.header h1{
+  padding-top: 1rem;
   text-align: left;
-  font: normal normal bold 24px/29px Lato;
+  font: bold 24px/29px Lato;
   letter-spacing: 0px;
   color: #1D1A1A;
 }
-table {
-  width: 1500px;
-  margin-top: 10rem;
-  position:relative;
-  border: #707070;
-  height: 200px;
-  text-align: center;
-  border-collapse: collapse;
+.settings{
+  margin-top: -5rem;
+  background-color: orange;
+  grid-area: 2 / 2 / 3 / 12; 
+  margin-right: 4rem;
+  margin-bottom: 7rem;
 }
+input{
+  float: left;
+}
+
+button{
+  background:#70707038;
+  border: 1px solid #70707038;
+  border-radius: 4px;
   
-th {
-  height:10rem;
-  padding: .8rem;
-  border-bottom:1px solid #707070;
+  width: 100px;
+  height: 30px;
+  
+  float: right;
+  text-align: center;
+  font: 18px;
   font-weight: bold;
-  font-size: 18px;
-  color: #707070;
-  line-height: 22px;
-  margin-top: 200px;
-}
-  
-td {
-  padding: .8rem;
-  text-align: center;
-  border-bottom:1px solid #707070 ;
-  font-size: 18px;
-  line-height: 30px;
+  letter-spacing: 0.27px;
   color: #1D1A1A;
+  padding-bottom: 2px;
+}
+button:hover{
+  cursor: pointer;
+}
+.settingsIcon{
+  rotate: 90deg;
+  color: #136FED;
+  width: 16px;
+  height: 16px;
+}
+.table{
+  margin-top: -5rem;
+  grid-area: 3 / 2 / 6 / 11;
+  background-color: #e43333;
+  margin-right: 4rem;
+}
+
+.errorBoundary{
+  padding-top: 7rem;
+  grid-area: 3 / 2 / 6 / 11;
+  background-color: #F9F9F9;
+  margin-right: 4rem;
 }
 
 .settings{
