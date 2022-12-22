@@ -11,4 +11,3 @@ NevinTroy's submission for GreedyGame FrontEnd Internship Task.
   
   The cache feature still has some bug and is in development stages.
   
-  Deployed: https://nevintroy.github.io/greedygame_analytics/
