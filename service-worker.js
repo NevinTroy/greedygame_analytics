@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/greedygame_analytics/precache-manifest.09765710c80a746c3d675ee86f595a8c.js"
+  "/greedygame_analytics/precache-manifest.dafe0018f7899331c58212ea9d45efd9.js"
 );
 
 workbox.clientsClaim();
