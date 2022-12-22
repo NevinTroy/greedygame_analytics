@@ -9,4 +9,6 @@ NevinTroy's submission for GreedyGame FrontEnd Internship Task.
   
   There is a cache middleware that stores the data value fetched from the API in the cache and is able to reference the cache layer rather than conducting another FETCH.
   
-  The cache feature has some bug and is still in development stages.
+  The cache feature still has some bug and is in development stages.
+  
+  Deployed: https://nevintroy.github.io/greedygame_analytics/
