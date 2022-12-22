@@ -32,31 +32,31 @@ const App=()=>{
   useEffect(()=>{
       requestData(dispatch,'2020-12-11','2020-12-12');
 
-      const filterParams=history.location.search.substr(1);
-      const filtersFromParams=qs.parse(filterParams);
+      // const filterParams=history.location.search.substr(1);
+      // const filtersFromParams=qs.parse(filterParams);
 
-      if(filterParams.count){
-        setStartDate(dispatch,String(filtersFromParams.startDate));
-        setEndDate(dispatch,String(filtersFromParams.endDate));
-        setEnable(dispatch,Array(filtersFromParams.enableVal));
-      }
+      // if(filterParams.count){
+      //   setStartDate(dispatch,String(filtersFromParams.startDate));
+      //   setEndDate(dispatch,String(filtersFromParams.endDate));
+      //   setEnable(dispatch,Array(filtersFromParams.enableVal));
+      // }
   },[error])
 
   const setDate=(event)=>{
     event.target.id === 'startDate' ? setStartDate(dispatch, event.target.value): setEndDate(dispatch, event.target.value);
   }
 
-  useEffect(()=>{
-    history.push(`?startDate=${startDate}`);
-  },[startDate])
+  // useEffect(()=>{
+  //   history.push(`?startDate=${startDate}`);
+  // },[startDate])
 
-  useEffect(()=>{
-    history.push(`?endDate=${endDate}`);
-  },[startDate])
+  // useEffect(()=>{
+  //   history.push(`?endDate=${endDate}`);
+  // },[startDate])
 
-  useEffect(()=>{
-    history.push(`?enableVal=${enableVal}`);
-  },[enableVal])
+  // useEffect(()=>{
+  //   history.push(`?enableVal=${enableVal}`);
+  // },[enableVal])
 
   return(
     <div className='App'>
