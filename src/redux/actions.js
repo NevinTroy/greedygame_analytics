@@ -9,10 +9,10 @@ import { REQUEST_PENDING,
 export const requestData=(dispatch,start,end)=>{
     dispatch({type:REQUEST_PENDING});
 
-    fetch(`http://go-dev.greedygame.com/v3/dummy/report?startDate=${start}&endDate=${end}`)
+    fetch(`https://go-dev.greedygame.com/v3/dummy/report?startDate=${start}&endDate=${end}`)
         .then(res=>res.json())
         .then(data=>{
-            fetch(`http://go-dev.greedygame.com/v3/dummy/apps`)
+            fetch(`https://go-dev.greedygame.com/v3/dummy/apps`)
               .then(res1=>res1.json())
               .then(d1=>{
                 //Storing in the cache
