@@ -1,6 +1,5 @@
 import React from 'react'
 import './Table.css'
-import logo from '../../logo.png';
 
 const changeFormat=(date)=>{
     const d =new Date(date);
@@ -36,10 +35,7 @@ const Table = (props) => {
                       appName.map((it,ind)=>{
                         if(it.app_id === item.app_id){
                           return (
-                            <div className='appLogo'>
-                              <img src={logo} alt='yuh'/>
                               <td key={ind}>{it.app_name}</td>
-                            </div>
                           )
                         }
                       })
@@ -52,15 +48,17 @@ const Table = (props) => {
                           case 'AD Requests':
                             return <td key={ind}>{item.requests}</td>
                           case 'AD Responses':
-                            return <td>{item.responses}</td>
+                            return <td key={ind}>{item.responses}</td>
                           case 'Impressions':
-                            return <td>{item.impressions}</td>
+                            return <td key={ind}>{item.impressions}</td>
                           case 'Revenue':
-                            return <td>{item.revenue.toFixed(2)}</td>
+                            return <td key={ind}>{item.revenue.toFixed(2)}</td>
                           case 'Fill Rate':
-                            return <td>{((item.requests/item.responses)*100).toFixed(2)}</td>                        
+                            return <td key={ind}>{((item.requests/item.responses)*100).toFixed(2)}</td>                        
                           case 'CTR':
-                            return <td>{((item.clicks/item.impressions)*100).toFixed(2)}</td>
+                            return <td key={ind}>{((item.clicks/item.impressions)*100).toFixed(2)}</td>
+                          default:
+                            return null;
                         }
                       })
                     } 
@@ -69,7 +67,7 @@ const Table = (props) => {
               })
             )
             :
-            <h1>Loading</h1>
+            <td>Loading</td>
           }
           </tbody>
         </table>

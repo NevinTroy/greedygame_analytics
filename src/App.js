@@ -1,18 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
-import { requestData, setEnable, setStartDate, setEndDate} from "./actions";
+import qs from 'qs';
+import {createBrowserHistory} from 'history';
+
+import { requestData, setEnable, setStartDate, setEndDate} from "./redux/actions";
 import Settings from "./components/Settings/Settings";
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 import "./App.css";
 import Table from './components/Table/Table';
-import logo from './logo.png';
 
 import { GoSettings } from "react-icons/go";
 
-function App(){
+const App=()=>{
   const dispatch=useDispatch();
+
+  const history = createBrowserHistory();
 
   const isPending=useSelector(state=>state.requestData.isPending);
   const cache_time=useSelector(state=>state.requestData.cache_time);
@@ -27,11 +31,32 @@ function App(){
 
   useEffect(()=>{
       requestData(dispatch,'2020-12-11','2020-12-12');
+
+      const filterParams=history.location.search.substr(1);
+      const filtersFromParams=qs.parse(filterParams);
+
+      if(filterParams.count){
+        setStartDate(dispatch,String(filtersFromParams.startDate));
+        setEndDate(dispatch,String(filtersFromParams.endDate));
+        setEnable(dispatch,Array(filtersFromParams.enableVal));
+      }
   },[error])
 
   const setDate=(event)=>{
     event.target.id === 'startDate' ? setStartDate(dispatch, event.target.value): setEndDate(dispatch, event.target.value);
   }
+
+  useEffect(()=>{
+    history.push(`?startDate=${startDate}`);
+  },[startDate])
+
+  useEffect(()=>{
+    history.push(`?endDate=${endDate}`);
+  },[startDate])
+
+  useEffect(()=>{
+    history.push(`?enableVal=${enableVal}`);
+  },[enableVal])
 
   return(
     <div className='App'>
@@ -61,7 +86,7 @@ function App(){
             <Table enableVal={enableVal} isPending={isPending} data={data} appName={appName} /> 
           </div>
           : 
-          <div className='errorBoundary'>
+          <div className='errorBoundary' styles={{marginTop : toggle ? '120px' : '10px' }}>
             <ErrorBoundary />
           </div>
         }

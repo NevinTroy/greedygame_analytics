@@ -15,6 +15,9 @@ export const requestData=(dispatch,start,end)=>{
             fetch(`http://go-dev.greedygame.com/v3/dummy/apps`)
               .then(res1=>res1.json())
               .then(d1=>{
+                //Storing in the cache
+                window['__appName'] = d1;
+                window['__data']=data.data;
                 dispatch({type:REQUEST_SUCCESS, 
                     payload: {
                         cache_time: data.cache_time,

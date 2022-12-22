@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createLogger } from "redux-logger";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import thunk from "redux-thunk";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
 import "./index.css";
 import App from "./App";
@@ -11,19 +9,18 @@ import { requestData,
   setEnable,
   setStartDate,
   setEndDate} 
-from "./reducers";
+from "./redux/reducers.js";
+import cache from './middleware/cache.middleware'
 
 import { loadState, saveState } from "./localStorage";
 
-
-const logger = createLogger();
 const rootReducers = combineReducers({requestData, setEnable, setStartDate, setEndDate});
 const persistedState=loadState();
 
 const store = createStore(
   rootReducers,
-  compose(applyMiddleware(thunk),applyMiddleware(logger))
-  // persistedState,
+  persistedState,
+  // applyMiddleware(cache)
 
 );
 
