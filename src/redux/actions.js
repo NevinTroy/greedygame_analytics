@@ -16,8 +16,8 @@ export const requestData=(dispatch,start,end)=>{
               .then(res1=>res1.json())
               .then(d1=>{
                 //Storing in the cache
-                window['__appName'] = d1;
-                window['__data']=data.data;
+                // window['__appName'] = d1;
+                // window['__data']=data.data;
                 dispatch({type:REQUEST_SUCCESS, 
                     payload: {
                         cache_time: data.cache_time,

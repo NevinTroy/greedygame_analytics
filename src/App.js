@@ -27,10 +27,10 @@ const App=()=>{
   let enableVal=useSelector(state=>state.setEnable.enableVal) ;
   const error=useSelector(state=>state.requestData.error);
 
-  const [toggle,setToggle]=useState(false);
+  const [toggle,setToggle]=useState(true);
 
   useEffect(()=>{
-      requestData(dispatch,'2020-12-11','2020-12-12');
+      requestData(dispatch,startDate,endDate);
 
       // const filterParams=history.location.search.substr(1);
       // const filtersFromParams=qs.parse(filterParams);
@@ -76,7 +76,7 @@ const App=()=>{
               defaultenableVal={enableVal} setToggle={setToggle}
               />
             :
-            <h1>Sorry</h1>
+            console.error()
           }
         </div>
         {
@@ -86,7 +86,7 @@ const App=()=>{
             <Table enableVal={enableVal} isPending={isPending} data={data} appName={appName} /> 
           </div>
           : 
-          <div className='errorBoundary' styles={{marginTop : toggle ? '120px' : '10px' }}>
+          <div className='errorBoundary' >
             <ErrorBoundary />
           </div>
         }
