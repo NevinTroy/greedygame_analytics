@@ -76,7 +76,7 @@ const App=()=>{
               defaultenableVal={enableVal} setToggle={setToggle}
               />
             :
-              console.log('none')
+            <h1>Sorry</h1>
           }
         </div>
         {
