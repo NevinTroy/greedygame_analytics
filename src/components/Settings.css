@@ -3,6 +3,7 @@
     height: 15rem;
     width: 100%;
     background-color: #e0e0e09c ;
+    display: inline-block;
 }
 h5{
     margin-left: 1rem;
@@ -13,7 +14,6 @@ ul{
     margin-right: 20px;
 }
 ul li{
-    display: inline-block;
     left: 10px;
     margin: 0 5px;
 }
