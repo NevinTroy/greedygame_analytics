@@ -24,7 +24,7 @@ const logger=createLogger();
 const store = createStore(
   rootReducers,
   persistedState,
-  compose(applyMiddleware(thunkMiddleware),applyMiddleware(logger))
+  compose(applyMiddleware(thunkMiddleware))
   // applyMiddleware(cache)
 );
 
