@@ -1,4 +1,4 @@
-# greedygame_analytics
+# GreedyGame Analytics
 NevinTroy's submission for GreedyGame FrontEnd Internship Task.
   
   The web page was created using react+redux and doesnt use any third party libraries for design or components. 
