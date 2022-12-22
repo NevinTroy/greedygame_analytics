@@ -50,7 +50,7 @@ const Settings=(props)=>{
       <h3>Dimensions and Metrics</h3>
       <div className='yuhh'>
       {
-          listItems.map((item,index)=>{
+          defaultenableVal.map((item,index)=>{
             return (
               <div className='checkbox'
                 key={index} 
