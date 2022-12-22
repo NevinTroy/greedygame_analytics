@@ -5,10 +5,11 @@ import './Settings.css'
 
 function Settings(props){
   
+  const {setEnable, requestData, startDate, endDate, defaultenableVal}=props;
   const dispatch=useDispatch();
 
-  const [listItems,setListItems]=useState(props.defaultenableVal);
-  const [filteredListItems,setFilteredListItems]=useState(props.defaultenableVal);
+  const [listItems,setListItems]=useState(defaultenableVal);
+  const [filteredListItems,setFilteredListItems]=useState(defaultenableVal);
 
   const dragItem = React.useRef();
   const dragOverItem = React.useRef();
@@ -27,8 +28,8 @@ function Settings(props){
   }
 
   const handleChange=(e) =>{
-    const { name } = e.target;
-    if (e.target.checked) {
+    const { name,checked } = e.target;
+    if (checked) {
       setFilteredListItems([...filteredListItems, name]);
     } else {
       setFilteredListItems(filteredListItems.filter((item) => item !== name));
@@ -41,7 +42,7 @@ function Settings(props){
 
   const applyChanges= ()=>{
     const res=listItems.filter(item => filteredListItems.includes(item));
-    props.requestData(dispatch,props.startDate,props.endDate);
+    props.requestData(dispatch,startDate,endDate);
     props.setEnable(dispatch,res);
   }
   return(
